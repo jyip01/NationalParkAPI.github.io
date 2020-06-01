@@ -17,6 +17,36 @@ function formatQueryParams(params) {
   return queryItems.join("&");
 }
 
+//Render GET Request Results to the Dom
+function displayResults(responseJson) {
+  if (responseJson.total ==0 ) {
+    console.log("State entered is invalid");
+    return;
+  }
+  console.log("displayResult function works");
+  $("#results-list").empty();
+  for (let i = 0; i < responseJson.data.length; i++) {
+    $("#results-list").append(`<br> <br>
+    <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">${responseJson.data[i].fullName}</h3>
+    </div>
+    <div class="panel-body">
+    <div class= "row>
+     <div class="col-md-3">
+     <h4 class="panel-title">${responseJson.data[i].description}</h4>
+     <p> <p>
+     </div>
+     <div class= "row>
+     <div class="col-md-3">
+     <a href=" ${responseJson.data[i].url}" target="_blank">Visit Park's Website</a>
+     </div>
+    </div> 
+  </div>`);
+  }
+  $("#results-list").removeClass("hidden");
+}
+
 //GET Request to National Parks Service API
 function getNationalParks(query, limit = 10) {
   console.log("getNationalPark works!");
@@ -47,35 +77,7 @@ function getNationalParks(query, limit = 10) {
     });
 }
 
-//Render GET Request Results to the Dom
-function displayResults(responseJson) {
-  if (responseJson.total ==0 ) {
-    console.log("State entered is invalid");
-    return;
-  }
-  console.log("displayResult function works");
-  $("#results-list").empty();
-  for (let i = 0; i < responseJson.data.length; i++) {
-    $("#results-list").append(`<br> <br>
-    <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">${responseJson.data[i].fullName}</h3>
-    </div>
-    <div class="panel-body">
-    <div class= "row>
-     <div class="col-md-3">
-     <h4 class="panel-title">${responseJson.data[i].description}</h4>
-     <p> <p>
-     </div>
-     <div class= "row>
-     <div class="col-md-3">
-     <a href=" ${responseJson.data[i].url}" target="_blank">Visit Park's Website</a>
-     </div>
-    </div> 
-  </div>`);
-  }
-  $("#results-list").removeClass("hidden");
-}
+
 
 //Watch the Submit Form Listeners
 function watchSubmitForm() {
