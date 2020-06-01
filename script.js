@@ -8,17 +8,6 @@ $(document).ready(function() {
   watchSubmitForm();
 });
 
-//Watch the Submit Form Listeners
-function watchSubmitForm() {
-  console.log("watchSumbitForm works!");
-  $("#search-form").submit(e => {
-    e.preventDefault();
-    let searchState = $("#state-name-input").val();
-    let numResults = $("#number-input").val();
-    getNationalParks(searchState, numResults);
-  });
-}
-
 //Format Search Query via Params
 function formatQueryParams(params) {
   console.log("formatQueryParams function works!");
@@ -34,7 +23,7 @@ function getNationalParks(query, limit = 10) {
 
   const params = {
     stateCode: query,
-    limit:50,
+    limit,
     api_key: apiKey
   };
 
@@ -60,6 +49,10 @@ function getNationalParks(query, limit = 10) {
 
 //Render GET Request Results to the Dom
 function displayResults(responseJson) {
+  if (responseJson.total ==0 ) {
+    console.log("State entered is invalid");
+    return;
+  }
   console.log("displayResult function works");
   $("#results-list").empty();
   for (let i = 0; i < responseJson.data.length; i++) {
@@ -82,4 +75,15 @@ function displayResults(responseJson) {
   </div>`);
   }
   $("#results-list").removeClass("hidden");
+}
+
+//Watch the Submit Form Listeners
+function watchSubmitForm() {
+  console.log("watchSumbitForm works!");
+  $("#search-form").submit(e => {
+    e.preventDefault();
+    let searchState = $("#state-name-input").val();
+    let numResults = $("#number-input").val();
+    getNationalParks(searchState, numResults);
+  });
 }
