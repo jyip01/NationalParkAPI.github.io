@@ -53,7 +53,7 @@ function getNationalParks(query, limit = 10) {
     .then(responseJson => displayResults(responseJson))
     .catch(err => {
       console.log(err);
-      alert("Something went wrong, try again!");
+      alert(`Something went wrong: ${err.message}`);
     });
 }
 
