@@ -21,6 +21,7 @@ function formatQueryParams(params) {
 function displayResults(responseJson) {
   if (responseJson.total ==0 ) {
     console.log("State entered is invalid");
+    $('.js-error').text("State entered is invalid");
     return;
   }
   console.log("displayResult function works");
