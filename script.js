@@ -75,7 +75,7 @@ function displayResults(responseJson) {
      </div>
      <div class= "row>
      <div class="col-md-3">
-     <a target="_blank" href=" ${responseJson.data[i].url}">Visit Park's Website</a>
+     <a href=" ${responseJson.data[i].url}" target="_blank">Visit Park's Website</a>
      </div>
     </div> 
   </div>`);
