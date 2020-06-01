@@ -38,6 +38,7 @@ function getNationalParks(query, limit = 10) {
     api_key: apiKey
   };
 
+  $(`.js-error`).empty();
   const queryString = formatQueryParams(params);
   const url = searchURL + "?" + queryString;
 
@@ -46,14 +47,14 @@ function getNationalParks(query, limit = 10) {
 
   fetch(url)
     .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error(response.statusText);
     })
     .then(responseJson => displayResults(responseJson))
     .catch(err => {
-      console.log(err);
-      alert(`Something went wrong: ${err.message}`);
+        $('.js-error').text(`Something went wrong: ${err.message}`);
     });
 }
 
